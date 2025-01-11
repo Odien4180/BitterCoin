@@ -6,7 +6,7 @@ using UnityEngine;
 public class Enemy_Short : MonoBehaviour, Hitable, IDisposable
 {
     [SerializeField]
-    private int _hp = 1000;
+    private int _hp = 100;
 
     [SerializeField]
     private float _speed = 4.0f;
@@ -32,8 +32,9 @@ public class Enemy_Short : MonoBehaviour, Hitable, IDisposable
         }
     }
 
-    public Enemy_Short Initialize(List<Transform> waypoints)
+    public Enemy_Short Initialize(int hp, List<Transform> waypoints)
     {
+        _hp = hp;
         _waypoints = new Queue<Transform>(waypoints);
         transform.position = _waypoints.Peek().position;
         gameObject.SetActive(true);
@@ -52,6 +53,7 @@ public class Enemy_Short : MonoBehaviour, Hitable, IDisposable
         if (_waypoints.Count == 0)
         {
             PoolPush();
+            GameManager.Instance.CurSanity.Value -= 1;
             return;
         }
 

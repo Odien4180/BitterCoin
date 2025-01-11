@@ -11,9 +11,6 @@ public class BitterCoin : MonoBehaviour
     private float _shootInterval = 1.0f;
     private float _shootTimer = 0;
 
-    [SerializeField]
-    private int _damage = 10;
-
     private ObjectPool<Bullet> _bulletPool;
 
     private void Start()
@@ -66,7 +63,7 @@ public class BitterCoin : MonoBehaviour
         {
             FirePosition = transform.position,
             Target = nearestEnemy.transform,
-            Damage = _damage,
+            Damage = GameManager.Instance.MarginBalance.Value,
         });
     }
 }
